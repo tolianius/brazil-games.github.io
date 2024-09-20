@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GORILLA KAZIK COINFLIP</title>
+    <style>
+        @font-face {
+            font-family: 'HomeVideo';
+            src: url('Intro.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Intro';
+            src: url('Intro.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: url('moon.png') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            background-color: #1E3A8A; /* Темно-синий фон */
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        .spinner-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+
+        .spinner {
+            width: 100%;
+            height: 100%;
+            background: url('money.png') no-repeat center center;
+            background-size: contain;
+            animation: spin 4s linear infinite;
+        }
+
+        .result {
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 28px;
+            font-weight: bold;
+            color: rgb(200, 206, 233);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            font-family: 'HomeVideo', Arial, sans-serif;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .button {
+            margin-top: 20px;
+            padding: 10px 30px;
+            font-size: 18px;
+            color: white;
+            background: linear-gradient(to bottom, #3B82F6, #60A5FA);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            font-family: 'Intro', Arial, sans-serif; /* Применяем шрифт Intro */
+        }
+
+        .button:hover {
+            background: linear-gradient(to bottom, #60A5FA, #3B82F6);
+            transform: scale(1.05);
+        }
+
+        .button:active {
+            background: #3B82F6;
+            transform: scale(0.95);
+        }
+
+        .back-button {
+            margin-top: 20px; /* Отступ сверху для кнопки "Вернуться" */
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #d9534f; /* Цвет кнопки назад */
+            border: none;
+            border-radius: 25px; /* Закругленные углы кнопки */
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            font-family: 'Intro', Arial, sans-serif; /* Применяем шрифт Intro */
+        }
+
+        .back-button:hover {
+            background-color: #c9302c; /* Цвет кнопки при наведении */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <div class="result" id="result"></div> <!-- Здесь будет отображаться результат -->
+        </div>
+        <button class="button" onclick="throwCoin()">Jogar</button>
+        <button class="back-button" onclick="location.href='https://tolianius.github.io/brazil-games.github.io/'">Menu principal</button>
+    </div>
+
+    <script>
+        function throwCoin() {
+            var coin = document.querySelector('.spinner');
+            var result = document.getElementById('result');
+
+            // Очищаем предыдущий результат
+            result.textContent = '';
+
+            // Определяем случайным образом "ОРЁЛ" или "РЕШКА"
+            var outcomes = ['Cabeça', 'Cauda'];
+            var randomIndex = Math.floor(Math.random() * outcomes.length);
+            var outcome = outcomes[randomIndex];
+
+            // Анимация кручения монеты
+            var animation = coin.animate([
+                { transform: 'rotate(0deg) translateY(0px)' },
+                { transform: 'rotate(0deg) translateY(-150px)' },
+                { transform: 'rotate(0deg) translateY(0px)' }
+            ], {
+                duration: 1000,
+                easing: 'ease-in-out'
+            });
+
+            // По окончании анимации
+            animation.onfinish = function() {
+                // Показываем результат
+                result.textContent = outcome;
+            };
+        }
+    </script>
+</body>
+</html>
